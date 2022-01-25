@@ -45,7 +45,6 @@ void	move_forward(t_cube *cube)
 		cube->posy += MS * cube->diry;
 	if (can_move(cube->posx + cube->dirx, cube->posy))
 		cube->posx += MS * cube->dirx;
-	printf("x = %f y = %f value = %d\n", cube->posx, cube->posy, worldMap[(int)cube->posx][(int)cube->posy]);
 }
 
 void	move_backward(t_cube *cube)
@@ -54,7 +53,6 @@ void	move_backward(t_cube *cube)
 		cube->posy -= MS * cube->diry;
 	if (can_move(cube->posx - cube->dirx, cube->posy))
 		cube->posx -= MS * cube->dirx;
-	printf("x = %f y = %f value = %d\n", cube->posx, cube->posy, worldMap[(int)cube->posx][(int)cube->posy]);
 }
 
 void	move_left(t_cube *cube)
@@ -63,7 +61,6 @@ void	move_left(t_cube *cube)
 		cube->posy -= MS * cube->planey;
 	if (can_move(cube->posx - cube->planex, cube->posy))
 		cube->posx -= MS * cube->planex;
-	printf("x = %f y = %f value = %d\n", cube->posx, cube->posy, worldMap[(int)cube->posx][(int)cube->posy]);
 }
 
 void	move_right(t_cube *cube)
@@ -72,7 +69,6 @@ void	move_right(t_cube *cube)
 		cube->posy += MS * cube->planey;
 	if (can_move(cube->posx + cube->planex, cube->posy))
 		cube->posx += MS * cube->planex;
-	printf("x = %f y = %f value = %d\n", cube->posx, cube->posy, worldMap[(int)cube->posx][(int)cube->posy]);
 }
 
 void	move(t_cube *cube)

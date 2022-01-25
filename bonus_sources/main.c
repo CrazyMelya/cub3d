@@ -6,7 +6,7 @@
 /*   By: cliza <cliza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:07:06 by cliza             #+#    #+#             */
-/*   Updated: 2022/01/25 11:17:40 by cliza            ###   ########.fr       */
+/*   Updated: 2022/01/25 15:12:53 by cliza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,16 +215,16 @@ void	texturing(t_cube *cube, t_ray *ray, int x)
 		if (ray->side)
 		{
 			if (ray->stepy == 1)
-				color = get_color(&cube->tex[4], ray->texx, ray->texy);
+				color = get_color(&cube->tex[0], ray->texx, ray->texy);
 			else
-				color = get_color(&cube->tex[4], ray->texx, ray->texy);
+				color = get_color(&cube->tex[1], ray->texx, ray->texy);
 		}
 		else
 		{
 			if (ray->stepx == 1)
-				color = get_color(&cube->tex[4], ray->texx, ray->texy);
+				color = get_color(&cube->tex[2], ray->texx, ray->texy);
 			else
-				color = get_color(&cube->tex[4], ray->texx, ray->texy);
+				color = get_color(&cube->tex[3], ray->texx, ray->texy);
 		}
 		apply_pixel(cube->img, x, y, color);
 		y++;
@@ -310,11 +310,10 @@ void	init_cube(t_cube *cube)
 	cube->planey = 0;
 	cube->mlx = mlx_init();
 	cube->win = mlx_new_window(cube->mlx, WIDTH, HEIGHT, "cube3d");
-	init_texture(cube, &cube->tex[0], "texs/spider-man.xpm");
-	init_texture(cube, &cube->tex[1], "texs/spawn.xpm");
-	init_texture(cube, &cube->tex[2], "texs/batman.xpm");
-	init_texture(cube, &cube->tex[3], "texs/deadpool.xpm");
-	init_texture(cube, &cube->tex[4], "texs/mettal1.xpm");
+	init_texture(cube, &cube->tex[0], "texs/wall1.xpm");
+	init_texture(cube, &cube->tex[1], "texs/wall2.xpm");
+	init_texture(cube, &cube->tex[2], "texs/wall3.xpm");
+	init_texture(cube, &cube->tex[3], "texs/wall4.xpm");
 	init_texture(cube, &cube->tex[5], "texs/portal_blue_mettal1.xpm");
 	init_texture(cube, &cube->tex[6], "texs/portal_orange_mettal1.xpm");
 }

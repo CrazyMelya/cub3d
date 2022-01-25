@@ -6,7 +6,7 @@
 /*   By: cliza <cliza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:07:06 by cliza             #+#    #+#             */
-/*   Updated: 2022/01/25 12:48:06 by cliza            ###   ########.fr       */
+/*   Updated: 2022/01/25 15:13:44 by cliza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	init_cube(t_cube *cube)
 {
 	cube->key = malloc(sizeof(t_keys));
 	cube->img = malloc(sizeof(t_img));
-	cube->tex = malloc(sizeof(t_texture) * 7);
+	cube->tex = malloc(sizeof(t_texture) * 4);
 	cube->key->a = 0;
 	cube->key->s = 0;
 	cube->key->w = 0;
@@ -139,9 +139,6 @@ void	init_cube(t_cube *cube)
 	init_texture(cube, &cube->tex[1], "texs/spawn.xpm");
 	init_texture(cube, &cube->tex[2], "texs/batman.xpm");
 	init_texture(cube, &cube->tex[3], "texs/deadpool.xpm");
-	init_texture(cube, &cube->tex[4], "texs/mettal1.xpm");
-	init_texture(cube, &cube->tex[5], "texs/portal_blue_mettal1.xpm");
-	init_texture(cube, &cube->tex[6], "texs/portal_orange_mettal1.xpm");
 }
 
 int	main(void)
