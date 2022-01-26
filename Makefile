@@ -2,7 +2,16 @@ SRC		= 	sources/main.c \
 			sources/utils.c \
 			sources/moves.c \
 			sources/moves_2.c \
-			sources/dda.c
+			sources/dda.c \
+			sources/parser/ft_error.c \
+			sources/parser/map_filing.c\
+			sources/parser/file_checking.c \
+			sources/parser/player_pos_check.c \
+			sources/parser/walls_checking.c \
+			sources/parser/params_dealing.c \
+			sources/parser/map_reading.c \
+			sources/parser/parser.c \
+			sources/parser/utils.c
 
 BONUS_SRC =	bonus_sources/main.c \
 			bonus_sources/doors.c \

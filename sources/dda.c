@@ -37,11 +37,11 @@ void	step_and_side(t_cube *cube, t_ray *ray)
 	}
 }
 
-void	dda(t_ray *ray)
+void	dda(t_cube *cube, t_ray *ray)
 {
-	while (worldMap[ray->mapx][ray->mapy] != 1 && !ray->check)
+	while (cube->map[ray->mapx][ray->mapy] != '1' && !ray->check)
 	{
-		if (ray->mapx > 0 && ray->mapx < 30 && ray->mapy > 0 && ray->mapy < 24)
+		if (ray->mapx > 0 && ray->mapx < cube->height && ray->mapy > 0 && ray->mapy < cube->width)
 		{
 			if (ray->sidedistx < ray->sidedisty)
 			{
@@ -104,16 +104,16 @@ void	texturing(t_cube *cube, t_ray *ray, int x)
 		if (ray->side)
 		{
 			if (ray->stepy == 1)
-				color = get_color(&cube->tex[0], ray->texx, ray->texy);
+				color = get_color(&cube->tex[2], ray->texx, ray->texy);
 			else
-				color = get_color(&cube->tex[1], ray->texx, ray->texy);
+				color = get_color(&cube->tex[3], ray->texx, ray->texy);
 		}
 		else
 		{
 			if (ray->stepx == 1)
-				color = get_color(&cube->tex[2], ray->texx, ray->texy);
+				color = get_color(&cube->tex[0], ray->texx, ray->texy);
 			else
-				color = get_color(&cube->tex[3], ray->texx, ray->texy);
+				color = get_color(&cube->tex[1], ray->texx, ray->texy);
 		}
 		apply_pixel(cube->img, x, y, color);
 		y++;

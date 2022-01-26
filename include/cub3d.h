@@ -6,7 +6,7 @@
 /*   By: cliza <cliza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:17:24 by cliza             #+#    #+#             */
-/*   Updated: 2022/01/25 12:50:12 by cliza            ###   ########.fr       */
+/*   Updated: 2022/01/26 17:25:43 by cliza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,21 @@
 # define MS 0.1
 # define RS 0.07
 
-extern int worldMap[30][24];
+typedef struct s_params
+{
+	char		*no;
+	char		*so;
+	char		*we;
+	char		*ea;
+	int			floor[3];
+	int			ceiling[3];
+	char		player_sym;
+	char		**map;
+	int     	player_x;
+    int     	player_y;
+	int			width;
+	int			height;
+}	t_params;
 
 typedef struct s_ray
 {
@@ -96,6 +110,11 @@ typedef struct s_cube
 	t_img		*img;
 	t_texture	*tex;
 	t_ray		*ray;
+	int			floor[3];
+	int			ceiling[3];
+	int			width;
+	int			height;
+	char		**map;
 	double		posx;
 	double		posy;
 	double		dirx;
@@ -114,7 +133,7 @@ void	rot_left(t_cube *cube);
 
 void	texturing(t_cube *cube, t_ray *ray, int x);
 void	tex_pos_init(t_cube *cube, t_ray *ray);
-void	dda(t_ray *ray);
+void	dda(t_cube *cube, t_ray *ray);
 void	step_and_side(t_cube *cube, t_ray *ray);
 void	init_ray(t_cube *cube, t_ray *ray, int x);
 
@@ -125,6 +144,26 @@ int		rgb_channel(t_texture *tex, int x, int y, int i);
 int		key_release(int key, t_cube *cube);
 int		key_press(int key, t_cube *cube);
 
+void	init_cube(t_cube *cube, t_params *params);
 int		closer(void);
+
+int ft_error(char *str);
+int	player_pos_check(char **map, t_params *params);
+void	check(char **map_arr, t_params *params, int x, int y);
+void	walls_checking(char **map_arr, t_params *params);
+void	check_texture(char **params_line, char **params_name);
+int	check_colors(char **params_line, int *params_values);
+int	params_dealing(char *line, t_params *params, int *num);
+int	record_map(int num, int empty_line, char *line, char **map);
+char	*map_reading(int fd, t_params *params, char **map);
+void	init_params(t_params *params);
+int	define_map_size(char *line, t_params *params);
+t_params	*parser(char **argv);
+int	arr_len(char **array2);
+void	arr_free(char **array2);
+char	**arr_create(t_params *params);
+void	map_filing(char *map, char **map_arr, int w, int h);
+int	is_digitstr(char *str);
+int file_checking(char *file_name);
 
 #endif
