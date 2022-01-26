@@ -6,7 +6,7 @@
 /*   By: pcarmeli <pcarmeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 23:32:00 by pcarmeli          #+#    #+#             */
-/*   Updated: 2022/01/26 16:03:30 by pcarmeli         ###   ########.fr       */
+/*   Updated: 2022/01/26 18:08:29 by pcarmeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,6 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 char	*ft_strdupc(char *s1, char c);
-int	get_next_line(int fd, char **line);
+int		get_next_line(int fd, char **line);
 
 #endif

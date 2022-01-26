@@ -6,7 +6,7 @@
 /*   By: cliza <cliza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:17:24 by cliza             #+#    #+#             */
-/*   Updated: 2022/01/26 17:25:43 by cliza            ###   ########.fr       */
+/*   Updated: 2022/01/26 19:19:38 by cliza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,12 @@ int		key_press(int key, t_cube *cube);
 
 void	init_cube(t_cube *cube, t_params *params);
 int		closer(void);
+void	ray_step(t_ray *ray);
+void	init_plane(t_cube *cube, t_params *params);
+void	init_texture(t_cube *cube, t_texture *tex, char *path);
+void	init_dir(t_cube *cube, t_params *params);
+void	shifting_colors(t_cube *cube, t_params *params);
+void	init_cube(t_cube *cube, t_params *params);
 
 int ft_error(char *str);
 int	player_pos_check(char **map, t_params *params);

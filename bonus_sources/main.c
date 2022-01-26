@@ -6,45 +6,11 @@
 /*   By: cliza <cliza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:07:06 by cliza             #+#    #+#             */
-/*   Updated: 2022/01/25 15:12:53 by cliza            ###   ########.fr       */
+/*   Updated: 2022/01/26 20:25:13 by cliza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../bonus_include/cub3d.h"
-
-int worldMap[30][24]= 
-	{
-		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,1,0,1,0,1,0,0,0,1},
-		{1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,1},
-		{1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,1,1,0,1,1,0,0,0,0,1,0,1,0,1,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,1,1,1,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,1,0,0,0,0,1,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,1,1,1,1,1,1,1},
-		{1,1,1,1,0,0,0,1,0,0,1,1,0,0,0,0,0,3,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,1},
-		{1,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1},
-		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-	};
 
 int	closer(void)
 {
@@ -53,25 +19,25 @@ int	closer(void)
 
 void	draw_mini_map(t_cube *cube)
 {
-	mini_map map;
+	t_mini_map map;
 
 	map.mini_x = WIDTH / 100;
-	map.stepx = 30 * cube->map_scale;
-	map.stepy = 24 * cube->map_scale;
+	map.stepx = cube->height * cube->map_scale;
+	map.stepy = cube->width * cube->map_scale;
 	map.x = 0;
-	while (map.x < 30)
+	while (map.x < cube->height)
 	{
 		map.y = 0;
 		map.mini_y = HEIGHT / 100;
-		while (map.y < 24)
+		while (map.y < cube->width)
 		{
-			if (worldMap[(int)map.x][(int)map.y] == 1)
+			if (cube->map[(int)map.x][(int)map.y] == '1')
 				apply_pixel(cube->img, map.mini_y, map.mini_x, 0xffffff);
-			if (worldMap[(int)map.x][(int)map.y] == 2)
+			if (cube->map[(int)map.x][(int)map.y] == '2')
 				apply_pixel(cube->img, map.mini_y, map.mini_x, 0x0000ff);
-			if (worldMap[(int)map.x][(int)map.y] == 3)
+			if (cube->map[(int)map.x][(int)map.y] == '3')
 				apply_pixel(cube->img, map.mini_y, map.mini_x, 0xff0000);
-			if (worldMap[(int)map.x][(int)map.y] == 0)
+			if (cube->map[(int)map.x][(int)map.y] == '0')
 				apply_pixel(cube->img, map.mini_y, map.mini_x, 0x000000);
 			if ((int)map.x == (int)cube->posx && (int)map.y == (int)cube->posy)
 				apply_pixel(cube->img, map.mini_y, map.mini_x, 0x00ff00);
@@ -97,9 +63,11 @@ void	draw_terra_sky(t_cube *cube)
 		while (x < WIDTH)
 		{
 			if (y < (HEIGHT / 2))
-				color = 0x645ac8;
+				color = (cube->ceiling[0] << 16) | (cube->ceiling[1] << 8) \
+				| cube->ceiling[2];
 			else
-				color = 0x0110f;
+				color = (cube->floor[0] << 16) | (cube->floor[1] << 8) \
+				| cube->floor[2];
 			apply_pixel(cube->img, x, y, color);
 			x++;
 		}
@@ -146,9 +114,9 @@ void	step_and_side(t_cube *cube, t_ray *ray)
 
 void	dda(t_cube *cube, t_ray *ray)
 {
-	while (worldMap[ray->mapx][ray->mapy] != 1 && !ray->check)
+	while (cube->map[ray->mapx][ray->mapy] != '1' && !ray->check)
 	{
-		if (ray->mapx > 0 && ray->mapx < 30 && ray->mapy > 0 && ray->mapy < 24)
+		if (ray->mapx > 0 && ray->mapx < cube->height && ray->mapy > 0 && ray->mapy < cube->width)
 		{
 			if (ray->sidedistx < ray->sidedisty)
 			{
@@ -162,9 +130,9 @@ void	dda(t_cube *cube, t_ray *ray)
 				ray->mapy += ray->stepy;
 				ray->side = 1;
 			}
-			if (worldMap[ray->mapx][ray->mapy] == 2)
+			if (cube->map[ray->mapx][ray->mapy] == '2')
 				add_door_front(&cube->doors, new_door(cube, ray, 2));
-			else if (worldMap[ray->mapx][ray->mapy] == 3)
+			else if (cube->map[ray->mapx][ray->mapy] == '3')
 				add_door_front(&cube->doors, new_door(cube, ray, 3));
 		}
 		else
@@ -215,16 +183,16 @@ void	texturing(t_cube *cube, t_ray *ray, int x)
 		if (ray->side)
 		{
 			if (ray->stepy == 1)
-				color = get_color(&cube->tex[0], ray->texx, ray->texy);
+				color = get_color(&cube->tex[2], ray->texx, ray->texy);
 			else
-				color = get_color(&cube->tex[1], ray->texx, ray->texy);
+				color = get_color(&cube->tex[3], ray->texx, ray->texy);
 		}
 		else
 		{
 			if (ray->stepx == 1)
-				color = get_color(&cube->tex[2], ray->texx, ray->texy);
+				color = get_color(&cube->tex[0], ray->texx, ray->texy);
 			else
-				color = get_color(&cube->tex[3], ray->texx, ray->texy);
+				color = get_color(&cube->tex[1], ray->texx, ray->texy);
 		}
 		apply_pixel(cube->img, x, y, color);
 		y++;
@@ -281,52 +249,27 @@ int	draw(t_cube *cube)
 	return (0);
 }
 
-void	init_texture(t_cube *cube, t_texture *tex, char *path)
+int	main(int argc, char **argv)
 {
-	tex->img = mlx_xpm_file_to_image(cube->mlx, path, &tex->x, &tex->y);
-	tex->addr = mlx_get_data_addr(tex->img, &tex->bpp, \
-	&tex->size_line, &tex->endian);
-}
+	t_cube		cube;
+	t_params	*params;
+	int			file;
 
-void	init_cube(t_cube *cube)
-{
-	cube->key = malloc(sizeof(t_keys));
-	cube->img = malloc(sizeof(t_img));
-	cube->tex = malloc(sizeof(t_texture) * 8);
-	cube->map_scale = 0.01;
-	cube->doors = NULL;
-	cube->key->a = 0;
-	cube->key->s = 0;
-	cube->key->w = 0;
-	cube->key->d = 0;
-	cube->key->left = 0;
-	cube->key->right = 0;
-	cube->key->esc = 0;
-	cube->posx = 15.1;
-	cube->posy = 15.1;
-	cube->dirx = 0;
-	cube->diry = -1;
-	cube->planex = -0.66;
-	cube->planey = 0;
-	cube->mlx = mlx_init();
-	cube->win = mlx_new_window(cube->mlx, WIDTH, HEIGHT, "cube3d");
-	init_texture(cube, &cube->tex[0], "texs/wall1.xpm");
-	init_texture(cube, &cube->tex[1], "texs/wall2.xpm");
-	init_texture(cube, &cube->tex[2], "texs/wall3.xpm");
-	init_texture(cube, &cube->tex[3], "texs/wall4.xpm");
-	init_texture(cube, &cube->tex[5], "texs/portal_blue_mettal1.xpm");
-	init_texture(cube, &cube->tex[6], "texs/portal_orange_mettal1.xpm");
-}
-
-int	main(void)
-{
-	t_cube	cube;
-
-	init_cube(&cube);
-	mlx_hook(cube.win, 17, 0, closer, NULL);
-	mlx_hook(cube.win, 2, 0, key_press, &cube);
-	mlx_hook(cube.win, 3, 0, key_release, &cube);
-	mlx_mouse_hide();
-	mlx_loop_hook(cube.mlx, draw, &cube);
-	mlx_loop(cube.mlx);
+	if (argc == 2)
+	{
+		file = file_checking(argv[1]);
+		if (file != 0)
+			ft_error("file opening problem\n");
+		params = parser(argv);
+		init_cube(&cube, params);
+		mlx_hook(cube.win, 17, 0, closer, NULL);
+		mlx_hook(cube.win, 2, 0, key_press, &cube);
+		mlx_hook(cube.win, 3, 0, key_release, &cube);
+		mlx_mouse_hide();
+		mlx_loop_hook(cube.mlx, draw, &cube);
+		mlx_loop(cube.mlx);
+	}
+	else
+		ft_error("correct usage: ./cub3D file_name.cub\n");
+	return (0);
 }

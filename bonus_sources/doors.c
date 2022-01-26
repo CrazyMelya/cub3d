@@ -48,8 +48,8 @@ void	add_door_front(t_door **doors, t_door *new_door)
 
 void	free_doors(t_door **doors)
 {
-	t_door *temp;
-	t_door *temp2;
+	t_door	*temp;
+	t_door	*temp2;
 
 	temp = *doors;
 	*doors = NULL;
@@ -71,12 +71,12 @@ void	draw_doors(t_cube *cube, t_door *doors, int x)
 		y = doors->drawstart;
 		while (y < doors->drawend)
 		{
-			doors->texy = (int)doors->texpos & (TEX - 1);
+			doors->texy = (int)doors->texpos;
 			doors->texpos += doors->step;
 			if (doors->type == 2)
-				color = get_color(&cube->tex[5], doors->texx, doors->texy);
+				color = get_color(&cube->tex[4], doors->texx, doors->texy);
 			if (doors->type == 3)
-				color = get_color(&cube->tex[6], doors->texx, doors->texy);
+				color = get_color(&cube->tex[5], doors->texx, doors->texy);
 			if (color != 0)
 				apply_pixel(cube->img, x, y, color);
 			y++;

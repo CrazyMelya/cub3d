@@ -6,7 +6,7 @@
 /*   By: cliza <cliza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:07:06 by cliza             #+#    #+#             */
-/*   Updated: 2022/01/26 17:25:05 by cliza            ###   ########.fr       */
+/*   Updated: 2022/01/26 19:18:36 by cliza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ void	draw_terra_sky(t_cube *cube)
 		while (x < WIDTH)
 		{
 			if (y < (HEIGHT / 2))
-				color = (cube->ceiling[0] << 16) | (cube->ceiling[1] << 8) | cube->ceiling[2];
+				color = (cube->ceiling[0] << 16) | (cube->ceiling[1] << 8) \
+				| cube->ceiling[2];
 			else
-				color = (cube->floor[0] << 16) | (cube->floor[1] << 8) | cube->floor[2];
+				color = (cube->floor[0] << 16) | (cube->floor[1] << 8) \
+				| cube->floor[2];
 			apply_pixel(cube->img, x, y, color);
 			x++;
 		}
@@ -83,8 +85,8 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		file = file_checking(argv[1]);
-    	if (file != 0)
-        	ft_error("file opening problem\n");
+		if (file != 0)
+			ft_error("file opening problem\n");
 		params = parser(argv);
 		init_cube(&cube, params);
 		mlx_hook(cube.win, 17, 0, closer, NULL);

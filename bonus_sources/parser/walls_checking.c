@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   walls_checking.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcarmeli <pcarmeli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cliza <cliza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 17:05:37 by pcarmeli          #+#    #+#             */
-/*   Updated: 2022/01/26 17:37:56 by pcarmeli         ###   ########.fr       */
+/*   Updated: 2022/01/26 20:14:41 by cliza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ void	check(char **map_arr, t_params *params, int x, int y)
 {
 	if ((y == 0 || y == params->height - 1 || x == 0 || \
 		x == params->width - 1) \
-		|| (map_arr[y][x + 1] != '1' && map_arr[y][x + 1] != '0') \
-		|| (map_arr[y][x - 1] != '1' && map_arr[y][x - 1] != '0') \
-		|| (map_arr[y + 1][x] != '1' && map_arr[y + 1][x] != '0') \
-		|| (map_arr[y - 1][x] != '1' && map_arr[y - 1][x] != '0') \
-		|| (map_arr[y + 1][x + 1] != '1' && map_arr[y + 1][x + 1] != '0') \
-		|| (map_arr[y + 1][x - 1] != '1' && map_arr[y + 1][x - 1] != '0') \
-		|| (map_arr[y - 1][x - 1] != '1' && map_arr[y - 1][x - 1] != '0') \
-		|| (map_arr[y - 1][x + 1] != '1' && map_arr[y - 1][x + 1] != '0'))
+		|| !ft_strchr("0123", map_arr[y][x + 1]) \
+		|| !ft_strchr("0123", map_arr[y][x - 1]) \
+		|| !ft_strchr("0123", map_arr[y + 1][x]) \
+		|| !ft_strchr("0123", map_arr[y - 1][x]) \
+		|| !ft_strchr("0123", map_arr[y + 1][x + 1]) \
+		|| !ft_strchr("0123", map_arr[y + 1][x - 1]) \
+		|| !ft_strchr("0123", map_arr[y - 1][x - 1])\
+		|| !ft_strchr("0123", map_arr[y - 1][x + 1]))
 		ft_error("map not valid\n");
 }
 
@@ -38,10 +38,7 @@ void	walls_checking(char **map_arr, t_params *params)
 		x = 0;
 		while (x < params->width)
 		{
-			if (map_arr[y][x] != '0' && map_arr[y][x] != '1' \
-			&& map_arr[y][x] != 'X')
-				ft_error("map not valid\n");
-			if (map_arr[y][x] == '0')
+			if (ft_strchr("02", map_arr[y][x]))
 				check(map_arr, params, x, y);
 			x++;
 		}

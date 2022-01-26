@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dda.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cliza <cliza@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/26 18:33:52 by cliza             #+#    #+#             */
+/*   Updated: 2022/01/26 18:33:56 by cliza            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3d.h"
 
 void	init_ray(t_cube *cube, t_ray *ray, int x)
@@ -41,21 +53,9 @@ void	dda(t_cube *cube, t_ray *ray)
 {
 	while (cube->map[ray->mapx][ray->mapy] != '1' && !ray->check)
 	{
-		if (ray->mapx > 0 && ray->mapx < cube->height && ray->mapy > 0 && ray->mapy < cube->width)
-		{
-			if (ray->sidedistx < ray->sidedisty)
-			{
-				ray->sidedistx += ray->deltadistx;
-				ray->mapx += ray->stepx;
-				ray->side = 0;
-			}
-			else
-			{
-				ray->sidedisty += ray->deltadisty;
-				ray->mapy += ray->stepy;
-				ray->side = 1;
-			}
-		}
+		if (ray->mapx > 0 && ray->mapx < cube->height && ray->mapy > 0 \
+		&& ray->mapy < cube->width)
+			ray_step(ray);
 		else
 			ray->check = 1;
 	}
@@ -119,4 +119,3 @@ void	texturing(t_cube *cube, t_ray *ray, int x)
 		y++;
 	}
 }
-

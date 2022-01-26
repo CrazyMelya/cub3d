@@ -1,4 +1,52 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   moves.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cliza <cliza@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/26 18:34:05 by cliza             #+#    #+#             */
+/*   Updated: 2022/01/26 18:34:07 by cliza            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3d.h"
+
+int	key_press(int key, t_cube *cube)
+{
+	if (key == 13)
+		cube->key->w = 1;
+	if (key == 1)
+		cube->key->s = 1;
+	if (key == 0)
+		cube->key->a = 1;
+	if (key == 2)
+		cube->key->d = 1;
+	if (key == 123)
+		cube->key->left = 1;
+	if (key == 124)
+		cube->key->right = 1;
+	if (key == 53)
+		closer();
+	return (0);
+}
+
+int	key_release(int key, t_cube *cube)
+{
+	if (key == 13)
+		cube->key->w = 0;
+	if (key == 1)
+		cube->key->s = 0;
+	if (key == 0)
+		cube->key->a = 0;
+	if (key == 2)
+		cube->key->d = 0;
+	if (key == 123)
+		cube->key->left = 0;
+	if (key == 124)
+		cube->key->right = 0;
+	return (0);
+}
 
 void	rot_left(t_cube *cube)
 {
@@ -31,4 +79,3 @@ void	rot_right(t_cube *cube)
 	cube->planey = old_plane_x * sin(-RS) \
 	+ cube->planey * cos(-RS);
 }
-
