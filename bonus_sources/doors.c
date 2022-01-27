@@ -1,9 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   doors.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cliza <cliza@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/27 10:59:04 by cliza             #+#    #+#             */
+/*   Updated: 2022/01/27 10:59:05 by cliza            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../bonus_include/cub3d.h"
+
+void	wallx_work(t_cube *cube, t_ray *ray, t_door	*new_door)
+{
+	double	wallx;
+
+	if (ray->side)
+		wallx = cube->posx + ray->perpwalldist * ray->raydirx;
+	else
+		wallx = cube->posy + ray->perpwalldist * ray->raydiry;
+	wallx -= floor(wallx);
+	new_door->texx = (int)(wallx * (double)TEX);
+}
 
 t_door	*new_door(t_cube *cube, t_ray *ray, int type)
 {
 	t_door	*new_door;
-	double	wallx;
 
 	new_door = malloc(sizeof(t_door));
 	new_door->next = NULL;
@@ -19,12 +42,7 @@ t_door	*new_door(t_cube *cube, t_ray *ray, int type)
 	new_door->drawend = ray->lineheight / 2 + HEIGHT / 2;
 	if (new_door->drawend >= HEIGHT)
 		new_door->drawend = HEIGHT - 1;
-	if (ray->side)
-		wallx = cube->posx + ray->perpwalldist * ray->raydirx;
-	else
-		wallx = cube->posy + ray->perpwalldist * ray->raydiry;
-	wallx -= floor(wallx);
-	new_door->texx = (int)(wallx * (double)TEX);
+	wallx_work(cube, ray, new_door);
 	if (!ray->side && ray->raydirx > 0)
 		new_door->texx = TEX - new_door->texx;
 	if (ray->side && ray->raydiry < 0)

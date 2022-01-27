@@ -1,76 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dda.c                                              :+:      :+:    :+:   */
+/*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cliza <cliza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/26 18:33:52 by cliza             #+#    #+#             */
-/*   Updated: 2022/01/27 10:57:38 by cliza            ###   ########.fr       */
+/*   Created: 2022/01/27 10:59:09 by cliza             #+#    #+#             */
+/*   Updated: 2022/01/27 10:59:10 by cliza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
-
-void	init_ray(t_cube *cube, t_ray *ray, int x)
-{
-	ray->camerax = (2 * x / (double) WIDTH) - 1;
-	ray->raydirx = cube->dirx + cube->planex * ray->camerax;
-	ray->raydiry = cube->diry + cube->planey * ray->camerax;
-	ray->mapx = (int)cube->posx;
-	ray->mapy = (int)cube->posy;
-	ray->deltadistx = fabs(1 / ray->raydirx);
-	ray->deltadisty = fabs(1 / ray->raydiry);
-	ray->hit = 0;
-}
-
-void	step_and_side(t_cube *cube, t_ray *ray)
-{
-	if (ray->raydirx < 0)
-	{
-		ray->stepx = -1;
-		ray->sidedistx = (cube->posx - ray->mapx) * ray->deltadistx;
-	}
-	else
-	{
-		ray->stepx = 1;
-		ray->sidedistx = (ray->mapx + 1.0 - cube->posx) * ray->deltadistx;
-	}
-	if (ray->raydiry < 0)
-	{
-		ray->stepy = -1;
-		ray->sidedisty = (cube->posy - ray->mapy) * ray->deltadisty;
-	}
-	else
-	{
-		ray->stepy = 1;
-		ray->sidedisty = (ray->mapy + 1.0 - cube->posy) * ray->deltadisty;
-	}
-}
-
-void	dda(t_cube *cube, t_ray *ray)
-{
-	while (cube->map[ray->mapx][ray->mapy] != '1')
-	{
-		if (ray->sidedistx < ray->sidedisty)
-		{
-			ray->sidedistx += ray->deltadistx;
-			ray->mapx += ray->stepx;
-			ray->side = 0;
-		}
-		else
-		{
-			ray->sidedisty += ray->deltadisty;
-			ray->mapy += ray->stepy;
-			ray->side = 1;
-		}
-	}
-	if (ray->side)
-		ray->perpwalldist = ray->sidedisty - ray->deltadisty;
-	else
-		ray->perpwalldist = ray->sidedistx - ray->deltadistx;
-	ray->lineheight = (int)(HEIGHT / ray->perpwalldist);
-}
+#include "../bonus_include/cub3d.h"
 
 void	tex_pos_init(t_cube *cube, t_ray *ray)
 {
@@ -124,4 +64,65 @@ void	texturing(t_cube *cube, t_ray *ray, int x)
 		apply_pixel(cube->img, x, y, color);
 		y++;
 	}
+}
+
+void	draw_terra_sky(t_cube *cube)
+{
+	int	x;
+	int	y;
+	int	color;
+
+	x = 0;
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			if (y < (HEIGHT / 2))
+				color = (cube->ceiling[0] << 16) | (cube->ceiling[1] << 8) \
+				| cube->ceiling[2];
+			else
+				color = (cube->floor[0] << 16) | (cube->floor[1] << 8) \
+				| cube->floor[2];
+			apply_pixel(cube->img, x, y, color);
+			x++;
+		}
+		y++;
+	}
+}
+
+void	draw_walls(t_cube *cube)
+{
+	t_ray	ray;
+	int		x;
+
+	x = 0;
+	while (x < WIDTH)
+	{
+		init_ray(cube, &ray, x);
+		step_and_side(cube, &ray);
+		dda(cube, &ray);
+		if (!ray.check)
+		{
+			tex_pos_init(cube, &ray);
+			texturing(cube, &ray, x);
+			draw_doors(cube, cube->doors, x);
+		}
+		free_doors(&cube->doors);
+		x++;
+	}
+}
+
+void	rot_mouse(t_cube *cube)
+{
+	int	x;
+	int	y;
+
+	mlx_mouse_get_pos(cube->win, &x, &y);
+	if (x < WIDTH / 2)
+		rot_left(cube);
+	if (x > WIDTH / 2)
+		rot_right(cube);
+	mlx_mouse_move(cube->win, WIDTH / 2, HEIGHT / 2);
 }

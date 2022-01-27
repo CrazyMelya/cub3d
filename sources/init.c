@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cliza <cliza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pcarmeli <pcarmeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 18:33:57 by cliza             #+#    #+#             */
-/*   Updated: 2022/01/26 19:19:47 by cliza            ###   ########.fr       */
+/*   Updated: 2022/01/26 20:32:19 by pcarmeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	init_texture(t_cube *cube, t_texture *tex, char *path)
 	if (!tex->img)
 		ft_error("wrong image\n");
 	if (tex->x < TEX || tex->y < TEX)
-		ft_error("wrong image size\n");	
+		ft_error("wrong image size\n");
 	tex->addr = mlx_get_data_addr(tex->img, &tex->bpp, \
 	&tex->size_line, &tex->endian);
 }

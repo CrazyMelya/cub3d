@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   walls_checking.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cliza <cliza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pcarmeli <pcarmeli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 17:05:37 by pcarmeli          #+#    #+#             */
-/*   Updated: 2022/01/26 20:14:41 by cliza            ###   ########.fr       */
+/*   Updated: 2022/01/26 20:41:18 by pcarmeli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	check(char **map_arr, t_params *params, int x, int y)
 		|| !ft_strchr("0123", map_arr[y - 1][x]) \
 		|| !ft_strchr("0123", map_arr[y + 1][x + 1]) \
 		|| !ft_strchr("0123", map_arr[y + 1][x - 1]) \
-		|| !ft_strchr("0123", map_arr[y - 1][x - 1])\
+		|| !ft_strchr("0123", map_arr[y - 1][x - 1]) \
 		|| !ft_strchr("0123", map_arr[y - 1][x + 1]))
 		ft_error("map not valid\n");
 }

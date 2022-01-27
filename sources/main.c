@@ -6,7 +6,7 @@
 /*   By: cliza <cliza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 19:07:06 by cliza             #+#    #+#             */
-/*   Updated: 2022/01/26 19:18:36 by cliza            ###   ########.fr       */
+/*   Updated: 2022/01/27 10:56:15 by cliza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,18 @@ void	draw_walls(t_cube *cube)
 	int		x;
 
 	x = 0;
-	while (x < WIDTH)
+	if (cube->posx > 0 && cube->posx < cube->height && cube->posy > 0 \
+		&& cube->posy < cube->width)
 	{
-		init_ray(cube, &ray, x);
-		step_and_side(cube, &ray);
-		dda(cube, &ray);
-		if (!ray.check)
+		while (x < WIDTH)
 		{
+			init_ray(cube, &ray, x);
+			step_and_side(cube, &ray);
+			dda(cube, &ray);
 			tex_pos_init(cube, &ray);
 			texturing(cube, &ray, x);
+			x++;
 		}
-		x++;
 	}
 }
 
@@ -92,7 +93,6 @@ int	main(int argc, char **argv)
 		mlx_hook(cube.win, 17, 0, closer, NULL);
 		mlx_hook(cube.win, 2, 0, key_press, &cube);
 		mlx_hook(cube.win, 3, 0, key_release, &cube);
-		mlx_mouse_hide();
 		mlx_loop_hook(cube.mlx, draw, &cube);
 		mlx_loop(cube.mlx);
 	}

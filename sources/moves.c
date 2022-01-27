@@ -6,7 +6,7 @@
 /*   By: cliza <cliza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 18:34:05 by cliza             #+#    #+#             */
-/*   Updated: 2022/01/26 18:34:07 by cliza            ###   ########.fr       */
+/*   Updated: 2022/01/27 10:58:34 by cliza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	key_press(int key, t_cube *cube)
 {
+	if (key == 53)
+		closer();
 	if (key == 13)
 		cube->key->w = 1;
 	if (key == 1)
@@ -26,8 +28,6 @@ int	key_press(int key, t_cube *cube)
 		cube->key->left = 1;
 	if (key == 124)
 		cube->key->right = 1;
-	if (key == 53)
-		closer();
 	return (0);
 }
 
